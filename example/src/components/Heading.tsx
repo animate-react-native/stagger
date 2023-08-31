@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text, type TextStyle } from 'react-native';
 
 export function Heading({
   children,
@@ -14,6 +14,28 @@ export function Heading({
         textTransform: 'uppercase',
         color: primary ? '#F0F464' : '#1f1f1f',
       }}
+    >
+      {children}
+    </Text>
+  );
+}
+
+export function Paragraph({
+  children,
+  primary = true,
+  style,
+}: React.PropsWithChildren<{ primary?: boolean; style?: TextStyle }>) {
+  return (
+    <Text
+      numberOfLines={1}
+      style={[
+        {
+          fontWeight: '700',
+          fontSize: 24,
+          color: primary ? '#F0F464' : '#1f1f1f',
+        },
+        style,
+      ]}
     >
       {children}
     </Text>

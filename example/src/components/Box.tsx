@@ -20,6 +20,7 @@ export function Box({
         marginRight: spacing,
         justifyContent: 'center',
         alignItems: 'center',
+        overflow: 'hidden',
         backgroundColor: primary ? '#F0F464' : '#1f1f1f',
       }}
     >

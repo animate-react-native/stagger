@@ -1,129 +1,105 @@
 import * as React from 'react';
-import type { ViewStyle } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native';
-import type { SharedValue } from 'react-native-reanimated';
+
 import Animated, {
-  runOnJS,
-  useAnimatedReaction,
-  useAnimatedStyle,
-  useFrameCallback,
-  useSharedValue,
+  SequencedTransition,
+  ComplexAnimationBuilder,
+  FadeInDown,
+  FadeOutDown,
+  Layout,
 } from 'react-native-reanimated';
+import type { ViewStyle } from 'react-native';
 
-const AnimatedChild = ({
-  index,
-  children,
-  anim,
-  textWidth,
-  spacing,
-}: React.PropsWithChildren<{
-  index: number;
-  anim: SharedValue<number>;
-  textWidth: SharedValue<number>;
-  spacing: number;
-}>) => {
-  const stylez = useAnimatedStyle(() => {
-    return {
-      position: 'absolute',
-      left: index * (textWidth.value + spacing),
-      transform: [
-        {
-          translateX: -(anim.value % (textWidth.value + spacing)),
-        },
-      ],
-    };
-  }, [index, spacing, textWidth]);
-  return <Animated.View style={stylez}>{children}</Animated.View>;
-};
-
-export type MarqueeProps = React.PropsWithChildren<{
-  speed?: number;
-  spacing?: number;
+export type StaggerProps = React.PropsWithChildren<{
+  stagger?: number;
+  /**
+   * The direction of the enter animation.
+   *
+   * -1 means the animation will start from the last child and go to the first child.
+   *
+   * 1 means the animation will start from the first child and go to the last child.
+   */
+  enterDirection?: -1 | 1;
+  /**
+   * The direction of the exit animation.
+   *
+   * -1 means the animation will start from the last child and go to the first child.
+   *
+   * 1 means the animation will start from the first child and go to the last child.
+   */
+  exitDirection?: -1 | 1;
+  duration?: number;
   style?: ViewStyle;
+  /**
+   * Return the desired animation builder. It can be any of
+   * https://www.reanimated2.com/docs/api/LayoutAnimations/entryAnimations.
+   *
+   * Custom animation: https://www.reanimated2.com/docs/api/LayoutAnimations/customAnimations.
+   *
+   * Keyframes animations: https://www.reanimated2.com/docs/api/LayoutAnimations/keyframeAnimations
+   *
+   */
+  entering?: () => ComplexAnimationBuilder;
+  /**
+   * Return the desired animation builder. It can be any of
+   * https://www.reanimated2.com/docs/api/LayoutAnimations/exitAnimations.
+   *
+   * Custom animation: https://www.reanimated2.com/docs/api/LayoutAnimations/customAnimations.
+   *
+   * Keyframes animations: https://www.reanimated2.com/docs/api/LayoutAnimations/keyframeAnimations
+   *
+   */
+  exiting?: () => ComplexAnimationBuilder;
+
+  initialEnteringDelay?: number;
+  initialExitingDelay?: number;
 }>;
-
-/**
- * Used to animate the given children in a horizontal manner.
- */
-export const Marquee = React.memo(
-  ({ speed = 1, children, spacing = 0, style }: MarqueeProps) => {
-    const parentWidth = useSharedValue(0);
-    const textWidth = useSharedValue(0);
-    const [cloneTimes, setCloneTimes] = React.useState(0);
-    const anim = useSharedValue(0);
-
-    useFrameCallback(() => {
-      anim.value += speed;
-    }, true);
-
-    useAnimatedReaction(
-      () => {
-        if (textWidth.value === 0 || parentWidth.value === 0) {
-          return 0;
-        }
-        return Math.round(parentWidth.value / textWidth.value) + 1;
-      },
-      (v) => {
-        if (v === 0) {
-          return;
-        }
-        // This is going to cover the case when the text/element size
-        // is greater than the actual parent size
-        // Double this to cover the entire screen twice, in this way we can
-        // reset the position of the first element when its going to move out
-        // of the screen without any noticible glitch
-        runOnJS(setCloneTimes)(v * 2);
-      },
-      []
-    );
-    return (
-      <Animated.View
-        style={style}
-        onLayout={(ev) => {
-          parentWidth.value = ev.nativeEvent.layout.width;
-        }}
-        pointerEvents="box-none"
-      >
-        <Animated.View style={styles.row} pointerEvents="box-none">
-          {
-            // We are adding the text inside a ScrollView because in this way we
-            // ensure that its not going to "wrap".
-          }
-          <Animated.ScrollView
-            horizontal
-            style={styles.hidden}
-            pointerEvents="box-none"
-          >
-            <View
-              onLayout={(ev) => {
-                textWidth.value = ev.nativeEvent.layout.width;
-              }}
-            >
-              {children}
-            </View>
-          </Animated.ScrollView>
-          {cloneTimes > 0 &&
-            [...Array(cloneTimes).keys()].map((index) => {
-              return (
-                <AnimatedChild
-                  key={`clone-${index}`}
-                  index={index}
-                  anim={anim}
-                  textWidth={textWidth}
-                  spacing={spacing}
-                >
-                  {children}
-                </AnimatedChild>
-              );
-            })}
-        </Animated.View>
-      </Animated.View>
-    );
+export function Stagger({
+  children,
+  stagger = 50,
+  enterDirection = 1,
+  exitDirection = -1,
+  duration = 400,
+  style,
+  entering = () => FadeInDown.duration(400),
+  exiting = () => FadeOutDown.duration(400),
+  initialEnteringDelay = 0,
+  initialExitingDelay = 0,
+}: StaggerProps) {
+  if (!children) {
+    return null;
   }
-);
 
-const styles = StyleSheet.create({
-  hidden: { opacity: 0, zIndex: -9999 },
-  row: { flexDirection: 'row', overflow: 'hidden' },
-});
+  return (
+    <Animated.View style={style} layout={Layout}>
+      {React.Children.map(children, (child, index) => {
+        if (!React.isValidElement(child)) {
+          return null;
+        }
+        return (
+          <Animated.View
+            key={child.key ?? index}
+            layout={Layout}
+            entering={entering()
+              .delay(
+                initialEnteringDelay +
+                  (enterDirection === 1
+                    ? index * stagger
+                    : (React.Children.count(children) - index) * stagger)
+              )
+              .duration(duration)}
+            exiting={exiting()
+              .delay(
+                initialExitingDelay +
+                  (exitDirection === 1
+                    ? index * stagger
+                    : (React.Children.count(children) - index) * stagger)
+              )
+              .duration(duration)}
+          >
+            {child}
+          </Animated.View>
+        );
+      })}
+    </Animated.View>
+  );
+}

@@ -1,7 +1,7 @@
 {
-  "name": "@animatereactnative/marquee",
+  "name": "@animatereactnative/stagger",
   "version": "0.2.0",
-  "description": "A React Native Marquee component",
+  "description": "A React Native stagger component",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -39,21 +39,19 @@
     "react-native",
     "ios",
     "android",
-    "react native marquee",
-    "marquee",
-    "carousel",
-    "slider",
-    "ticker",
-    "horizontal-scrolling-carousels",
-    "infinite ticker"
+    "react native stagger",
+    "stagger",
+    "exit animation",
+    "enter animation",
+    "react native animation"
   ],
-  "repository": "https://github.com/animate-react-native/marquee",
+  "repository": "https://github.com/animate-react-native/stagger",
   "author": "catalinmiron <hi@animatereactnative.com> (https://www.animatereactnative.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/animate-react-native/marquee/issues"
+    "url": "https://github.com/animate-react-native/stagger/issues"
   },
-  "homepage": "https://github.com/animate-react-native/marquee#readme",
+  "homepage": "https://github.com/animate-react-native/stagger#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

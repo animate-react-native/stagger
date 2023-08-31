@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@animatereactnative/marquee": ["./src/index"]
+      "@animatereactnative/stagger": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
