@@ -3,7 +3,8 @@
   
   
 <img alt="AnimateReactNative.com - Premium and Custom React Native animations." src="./animatereactnative-stagger-preview.gif" align="right"/>
-  
+
+  <br />
 
 [![NPM Version](https://img.shields.io/npm/v/@animatereactnative/stagger.svg?style=flat&color=black)](https://www.npmjs.org/package/@animatereactnative/stagger) [![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://expo.io/) [![npm](https://img.shields.io/npm/l/@animatereactnative/stagger?style=flat-square)](https://www.npmjs.com/package/@animatereactnative/stagger) [![npm](https://img.shields.io/badge/types-included-blue?style=flat-square)](https://www.npmjs.com/package/@animatereactnative/stagger) <a href="https://twitter.com/mironcatalin"><img src="https://img.shields.io/twitter/follow/mironcatalin?label=Follow @mironcatalin&color=black" alt="Follow Miron Catalin"></a>
 
