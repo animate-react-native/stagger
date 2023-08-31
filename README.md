@@ -1,13 +1,14 @@
-<div align="center">
+<div>
+<img alt="AnimateReactNative.com - Premium and Custom React Native animations." src="./animatereactnative-stagger-preview.gif" align="right"/>
+  
 <h1>React Native Stagger</h1>
-
-![AnimateReactNative.com - Premium and Custom React Native animations.](./animatereactnative-stagger-preview.gif)
+  
 
 [![NPM Version](https://img.shields.io/npm/v/@animatereactnative/stagger.svg?style=flat&color=black)](https://www.npmjs.org/package/@animatereactnative/stagger) [![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://expo.io/) [![npm](https://img.shields.io/npm/l/@animatereactnative/stagger?style=flat-square)](https://www.npmjs.com/package/@animatereactnative/stagger) [![npm](https://img.shields.io/badge/types-included-blue?style=flat-square)](https://www.npmjs.com/package/@animatereactnative/stagger) <a href="https://twitter.com/mironcatalin"><img src="https://img.shields.io/twitter/follow/mironcatalin?label=Follow @mironcatalin&color=black" alt="Follow Miron Catalin"></a>
 
-</div>
+React Native Stagger component, a cross-platform stagger orchestrator component, powered by Reanimated:
 
-React Native Stagger component, a cross-platform marquee component, powered by Reanimated:
+</div>
 
 - 🔋 Powered by **Reanimated 3** Layout Animations
 - 📱 Works with **Expo**
@@ -48,18 +49,18 @@ export function Example() {
 
 ## Props
 
-| name                   | description                                                                                                  | required | type                            | default |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------- | ------------------------------- | ------- | ------------- |
-| `children`             | Any component that you'd like to apply infinite scrolling / marquee effect                                   | YES      | `React.ReactNode`               | 1       |
-| `stagger`              | Stagger duration between elements                                                                            | NO       | `number`                        | 50      |
-| `duration`             | Enter/Exit animation duration                                                                                | NO       | `number`                        | 400     |
-| `enterDirection`       | The direction of the animation. `1 -> top to bottom`, `-1 -> bottom to top`                                  | NO       | `number`                        | 0       |
-| `exitDirection`        | The direction of the animation. `1 -> top to bottom`, `-1 -> bottom to top`                                  | NO       | `number`                        | 0       |
-| `initialEnteringDelay` | Initial enter animation delay                                                                                | NO       | number                          |         | 1             |
-| `initialExistingDelay` | Initial exit animation delay                                                                                 | NO       | number                          |         | -1            |
-| `enter`                | [Reanimated Enter animation](https://www.reanimated3.com/docs/layout-animations/entering-exiting-animations) | NO       | `() => ComplexAnimationBuilder` |         | `FadeInDown`  |
-| `exiting`              | [Reanimated Exit animation](https://www.reanimated3.com/docs/layout-animations/entering-exiting-animations)  | NO       | `() => ComplexAnimationBuilder` |         | `FadeOutDown` |
-| `style`                | View style to be applied to Marquee container.                                                               | NO       | `StyleProp<ViewStyle>`          |         |
+| name                   | description                                                                                                  | required | type                            | default       |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------- | ------------------------------- | ------------- |
+| `children`             | Any component that you'd like to apply infinite scrolling / marquee effect                                   | YES      | `React.ReactNode`               | 1             |
+| `stagger`              | Stagger duration between elements                                                                            | NO       | `number`                        | 50            |
+| `duration`             | Enter/Exit animation duration                                                                                | NO       | `number`                        | 400           |
+| `enterDirection`       | The direction of the animation. `1 -> top to bottom`, `-1 -> bottom to top`                                  | NO       | `number`                        | 0             |
+| `exitDirection`        | The direction of the animation. `1 -> top to bottom`, `-1 -> bottom to top`                                  | NO       | `number`                        | 0             |
+| `initialEnteringDelay` | Initial enter animation delay                                                                                | NO       | number                          | 1             |
+| `initialExistingDelay` | Initial exit animation delay                                                                                 | NO       | number                          | -1            |
+| `enter`                | [Reanimated Enter animation](https://www.reanimated3.com/docs/layout-animations/entering-exiting-animations) | NO       | `() => ComplexAnimationBuilder` | `FadeInDown`  |
+| `exiting`              | [Reanimated Exit animation](https://www.reanimated3.com/docs/layout-animations/entering-exiting-animations)  | NO       | `() => ComplexAnimationBuilder` | `FadeOutDown` |
+| `style`                | View style to be applied to Marquee container.                                                               | NO       | `StyleProp<ViewStyle>`          |               |
 
 ## Contributing
 
