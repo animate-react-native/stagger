@@ -33,7 +33,19 @@ import { Stagger } from '@animatereactnative/stagger';
 
 export function Example() {
   return (
-    <Stagger spacing={20} speed={1}>
+    <Stagger
+      stagger={50}
+      duration={300}
+      exitDirection={-1}
+      entering={() => ZoomInEasyDown.springify()}
+      exiting={() => FadeOutDown.springify()}
+      style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: 12,
+      }}
+    >
       <Paragraph>1. Custom duration</Paragraph>
       <Paragraph>2. Custom stagger</Paragraph>
       <Paragraph>3. Custom animation</Paragraph>
