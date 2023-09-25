@@ -9,6 +9,10 @@ import Animated, {
 import type { ViewStyle } from 'react-native';
 
 export type StaggerProps = React.PropsWithChildren<{
+  enabled?: boolean;
+  /**
+   * to enable or disable the stagger animation
+   */
   stagger?: number;
   /**
    * The direction of the enter animation.
@@ -54,6 +58,7 @@ export type StaggerProps = React.PropsWithChildren<{
 }>;
 export function Stagger({
   children,
+  enabled = true,
   stagger = 50,
   enterDirection = 1,
   exitDirection = -1,
@@ -66,6 +71,10 @@ export function Stagger({
 }: StaggerProps) {
   if (!children) {
     return null;
+  }
+
+  if (!enabled) {
+    return <Animated.View style={style}>{children}</Animated.View>;
   }
 
   return (
