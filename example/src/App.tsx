@@ -46,7 +46,7 @@ export default function App() {
           stagger={50}
           duration={300}
           exitDirection={-1}
-          entering={() => ZoomInEasyDown.springify()}
+          entering={() => ZoomInEasyDown}
           exiting={() => FadeOutDown.springify()}
           style={{
             flexDirection: 'row',

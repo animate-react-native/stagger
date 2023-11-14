@@ -7,6 +7,8 @@ import Animated, {
   Layout,
 } from 'react-native-reanimated';
 import type { ViewStyle } from 'react-native';
+import type { BaseAnimationBuilder, Keyframe } from 'react-native-reanimated';
+import type { EntryExitAnimationFunction } from 'react-native-reanimated';
 
 export type StaggerProps = React.PropsWithChildren<{
   stagger?: number;
@@ -37,7 +39,12 @@ export type StaggerProps = React.PropsWithChildren<{
    * Keyframes animations: https://www.reanimated2.com/docs/api/LayoutAnimations/keyframeAnimations
    *
    */
-  entering?: () => ComplexAnimationBuilder;
+  entering?: () =>
+    | ComplexAnimationBuilder
+    | BaseAnimationBuilder
+    | typeof BaseAnimationBuilder
+    | EntryExitAnimationFunction
+    | Keyframe;
   /**
    * Return the desired animation builder. It can be any of
    * https://www.reanimated2.com/docs/api/LayoutAnimations/exitAnimations.
@@ -47,7 +54,12 @@ export type StaggerProps = React.PropsWithChildren<{
    * Keyframes animations: https://www.reanimated2.com/docs/api/LayoutAnimations/keyframeAnimations
    *
    */
-  exiting?: () => ComplexAnimationBuilder;
+  exiting?: () =>
+    | ComplexAnimationBuilder
+    | BaseAnimationBuilder
+    | typeof BaseAnimationBuilder
+    | EntryExitAnimationFunction
+    | Keyframe;
 
   initialEnteringDelay?: number;
   initialExitingDelay?: number;
@@ -78,7 +90,7 @@ export function Stagger({
           <Animated.View
             key={child.key ?? index}
             layout={Layout}
-            entering={entering()
+            entering={(entering() as ComplexAnimationBuilder)
               .delay(
                 initialEnteringDelay +
                   (enterDirection === 1
@@ -86,7 +98,7 @@ export function Stagger({
                     : (React.Children.count(children) - index) * stagger)
               )
               .duration(duration)}
-            exiting={exiting()
+            exiting={(exiting() as ComplexAnimationBuilder)
               .delay(
                 initialExitingDelay +
                   (exitDirection === 1
