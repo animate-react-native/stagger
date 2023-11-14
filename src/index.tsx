@@ -44,7 +44,7 @@ export type StaggerProps = React.PropsWithChildren<{
     | BaseAnimationBuilder
     | typeof BaseAnimationBuilder
     | EntryExitAnimationFunction
-    | Keyframe;
+    | typeof Keyframe;
   /**
    * Return the desired animation builder. It can be any of
    * https://www.reanimated2.com/docs/api/LayoutAnimations/exitAnimations.
@@ -59,7 +59,7 @@ export type StaggerProps = React.PropsWithChildren<{
     | BaseAnimationBuilder
     | typeof BaseAnimationBuilder
     | EntryExitAnimationFunction
-    | Keyframe;
+    | typeof Keyframe;
 
   initialEnteringDelay?: number;
   initialExitingDelay?: number;
