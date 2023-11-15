@@ -69,6 +69,8 @@ export function Example() {
 | `exitDirection`        | The direction of the animation. `1 -> top to bottom`, `-1 -> bottom to top`                                  | NO       | `number`                        | 0             |
 | `initialEnteringDelay` | Initial enter animation delay                                                                                | NO       | number                          | 1             |
 | `initialExistingDelay` | Initial exit animation delay                                                                                 | NO       | number                          | -1            |
+| `onEnterFinished`      | callback to announce when the last item animation has finished (direction dependent)                         | NO       | () => void                      | undefined     |
+| `onExitFinished`       | callback to announce when the last item animation has finished (direction dependent)                         | NO       | () => void                      | undefined     |
 | `enter`                | [Reanimated Enter animation](https://www.reanimated3.com/docs/layout-animations/entering-exiting-animations) | NO       | `() => ComplexAnimationBuilder` | `FadeInDown`  |
 | `exiting`              | [Reanimated Exit animation](https://www.reanimated3.com/docs/layout-animations/entering-exiting-animations)  | NO       | `() => ComplexAnimationBuilder` | `FadeOutDown` |
 | `style`                | View style to be applied to Marquee container.                                                               | NO       | `StyleProp<ViewStyle>`          |               |

@@ -1,14 +1,18 @@
 import * as React from 'react';
 
+import type { ViewStyle } from 'react-native';
+import type {
+  BaseAnimationBuilder,
+  EntryExitAnimationFunction,
+  Keyframe,
+} from 'react-native-reanimated';
 import Animated, {
   ComplexAnimationBuilder,
   FadeInDown,
   FadeOutDown,
   Layout,
+  runOnJS,
 } from 'react-native-reanimated';
-import type { ViewStyle } from 'react-native';
-import type { BaseAnimationBuilder, Keyframe } from 'react-native-reanimated';
-import type { EntryExitAnimationFunction } from 'react-native-reanimated';
 
 export type StaggerProps = React.PropsWithChildren<{
   stagger?: number;
@@ -61,6 +65,8 @@ export type StaggerProps = React.PropsWithChildren<{
     | EntryExitAnimationFunction
     | typeof Keyframe;
 
+  onEnterFinished?: () => void;
+  onExitFinished?: () => void;
   initialEnteringDelay?: number;
   initialExitingDelay?: number;
 }>;
@@ -75,6 +81,8 @@ export function Stagger({
   exiting = () => FadeOutDown.duration(400),
   initialEnteringDelay = 0,
   initialExitingDelay = 0,
+  onEnterFinished,
+  onExitFinished,
 }: StaggerProps) {
   if (!children) {
     return null;
@@ -86,6 +94,14 @@ export function Stagger({
         if (!React.isValidElement(child)) {
           return null;
         }
+
+        const isLastEnter =
+          index ===
+          (enterDirection === 1 ? React.Children.count(children) - 1 : 0);
+        const isLastExit =
+          index ===
+          (enterDirection === -1 ? React.Children.count(children) - 1 : 0);
+
         return (
           <Animated.View
             key={child.key ?? index}
@@ -97,7 +113,13 @@ export function Stagger({
                     ? index * stagger
                     : (React.Children.count(children) - index) * stagger)
               )
-              .duration(duration)}
+              .duration(duration)
+              .withCallback((finished) => {
+                'worklet';
+                if (finished && isLastEnter && onEnterFinished) {
+                  runOnJS(onEnterFinished)();
+                }
+              })}
             exiting={(exiting() as ComplexAnimationBuilder)
               .delay(
                 initialExitingDelay +
@@ -105,7 +127,14 @@ export function Stagger({
                     ? index * stagger
                     : (React.Children.count(children) - index) * stagger)
               )
-              .duration(duration)}
+              .duration(duration)
+              .withCallback((finished) => {
+                'worklet';
+                if (finished && isLastExit && onExitFinished) {
+                  runOnJS(onExitFinished)();
+                }
+              })}
+            style={child.props.style}
           >
             {child}
           </Animated.View>
