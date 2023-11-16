@@ -63,6 +63,7 @@ export function Example() {
 | name                   | description                                                                                                  | required | type                            | default       |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------- | ------------------------------- | ------------- |
 | `children`             | Any component that you'd like to apply infinite scrolling / marquee effect                                   | YES      | `React.ReactNode`               | 1             |
+| `enabled`              | Enable stagger animation                                                                                     | NO       | `boolean`                       | true          |
 | `stagger`              | Stagger duration between elements                                                                            | NO       | `number`                        | 50            |
 | `duration`             | Enter/Exit animation duration                                                                                | NO       | `number`                        | 400           |
 | `enterDirection`       | The direction of the animation. `1 -> top to bottom`, `-1 -> bottom to top`                                  | NO       | `number`                        | 0             |
