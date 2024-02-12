@@ -38,6 +38,7 @@ export type StaggerProps = React.PropsWithChildren<{
   exitDirection?: -1 | 1;
   duration?: number;
   style?: ViewStyle;
+  childWrapperStyle?: ViewStyle;
   /**
    * Return the desired animation builder. It can be any of
    * https://www.reanimated2.com/docs/api/LayoutAnimations/entryAnimations.
@@ -82,6 +83,7 @@ export function Stagger({
   exitDirection = -1,
   duration = 400,
   style,
+  childWrapperStyle,
   entering = () => FadeInDown.duration(400),
   exiting = () => FadeOutDown.duration(400),
   initialEnteringDelay = 0,
@@ -114,6 +116,7 @@ export function Stagger({
         return (
           <Animated.View
             key={child.key ?? index}
+            style={childWrapperStyle}
             layout={Layout}
             entering={(entering() as ComplexAnimationBuilder)
               .delay(
