@@ -1,3 +1,5 @@
+![@animatereactnative/stagger](https://raw.githubusercontent.com/animate-react-native/stagger/main/docs/banner.png)
+
 <div>
 <h1>React Native Stagger</h1>
 
