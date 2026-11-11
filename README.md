@@ -1,4 +1,7 @@
-![@animatereactnative/stagger](https://raw.githubusercontent.com/animate-react-native/stagger/main/docs/banner.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/animate-react-native/stagger/main/docs/banner-dark.png">
+  <img alt="@animatereactnative/stagger" src="https://raw.githubusercontent.com/animate-react-native/stagger/main/docs/banner.png">
+</picture>
 
 <div>
 <h1>React Native Stagger</h1>
